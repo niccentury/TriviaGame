@@ -21,6 +21,8 @@ namespace TriviaGame
 
         public List<string> correctAnswers = new List<string>();
 
+
+        //Control the state of the game
         public void GameFunc()
         {
            
@@ -50,7 +52,7 @@ namespace TriviaGame
 
         }
 
-        
+        //Control the picking of Category and handles the user input
         public void CategoryPicker()
         {
             Console.WriteLine("-------------------------Pick a Category---------------------------");
@@ -76,7 +78,7 @@ namespace TriviaGame
         }
 
         
-
+        //Populates questions from the Dictionaries
         public void QuestionHandler(int x)
         {
             if (player1Turn == true) {
