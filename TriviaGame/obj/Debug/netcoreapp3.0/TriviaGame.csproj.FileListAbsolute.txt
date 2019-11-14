@@ -1,0 +1,14 @@
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\TriviaGame.exe
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\TriviaGame.deps.json
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\TriviaGame.runtimeconfig.json
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\TriviaGame.runtimeconfig.dev.json
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\TriviaGame.dll
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\TriviaGame.pdb
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\obj\Debug\netcoreapp3.0\TriviaGame.csprojAssemblyReference.cache
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\obj\Debug\netcoreapp3.0\TriviaGame.AssemblyInfoInputs.cache
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\obj\Debug\netcoreapp3.0\TriviaGame.AssemblyInfo.cs
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\obj\Debug\netcoreapp3.0\TriviaGame.dll
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\obj\Debug\netcoreapp3.0\TriviaGame.pdb
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\QuestionsComputer.txt
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\QuestionsHistory.txt
+C:\Users\WorkSpace\source\repos\TriviaGame\TriviaGame\bin\Debug\netcoreapp3.0\QuestionsScience.txt

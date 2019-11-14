@@ -1,0 +1,4 @@
+﻿▲ Must have 4 players to play the game.
+▲ If a player answers a question correctly, the turn remains with that player.
+▲ A player can forfiet their turn by pressing enter.
+▲ Lastly, which ever player reached the score limit first shall win.
