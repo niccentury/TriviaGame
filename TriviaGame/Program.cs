@@ -8,7 +8,7 @@ namespace TriviaGame
         static void Main()
         {
             Answers a = new Answers();
-            Game g = new Game();
+            Game g = new Game(a);
             
             a.TextFileToDictionary();
             g.GameFunc();

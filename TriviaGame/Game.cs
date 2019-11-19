@@ -6,27 +6,46 @@ using System.Threading;
 
 namespace TriviaGame
 {
+    /*Still do the randomizer, max score to win and change text for correct and wrong answer
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+
+
     class Game
     {
-        Answers a = new Answers();
-        public bool player1Turn = true;
-        public bool player2Turn = false;
-        public bool player3Turn = false;
-        public bool player4Turn = false;
+        private Random random = new Random();
+        public Answers a;
+        public Game(Answers a)
+        {
+            this.a = a;
+        }
+
+        int mapIterator = 0;
+        int sapIterator = 0;
+        int hapIterator = 0;
+
+        int[] playerScores = new int[] { 0, 0, 0, 0 };
+        int maxScore = 3;
+        int currentPlayer = 0;
+        int[] iteratorArray;
+        bool wonGame = false;
 
         public bool[] playerArray = new bool[4];
-       
-        
-        
-
-        public List<string> correctAnswers = new List<string>();
-
 
         //Control the state of the game
         public void GameFunc()
         {
-           
-            bool gameStart = false;
+            iteratorArray = new int[] { mapIterator, sapIterator, hapIterator };
+            
             Console.WriteLine("Welcome to my Trivia Game!!!\n\n Press ENTER to see rules...");
             Console.ReadKey();
             Console.Clear();
@@ -34,7 +53,7 @@ namespace TriviaGame
             Thread.Sleep(2000);
             Console.WriteLine($"▲ Must have 4 players to play the game.\n");
             Thread.Sleep(1000);
-            Console.WriteLine("▲ If a player answers a question correctly, the turn remains with that player.\n");
+            Console.WriteLine("▲ If a player answers a question correctly, the turn DOES NOT remain with that player.\n");
             Thread.Sleep(1000);
             Console.WriteLine("▲ A player can forfiet their turn by pressing enter.\n");
             Thread.Sleep(1000);
@@ -44,19 +63,18 @@ namespace TriviaGame
             Console.ReadKey();
             Console.Clear();
 
-            playerArray = new bool[] { player1Turn, player2Turn, player3Turn, player4Turn};
-
-            gameStart = true;
-
             CategoryPicker();
-
         }
 
         //Control the picking of Category and handles the user input
         public void CategoryPicker()
         {
+            if (wonGame == true)
+                GameFunc();
+
+            Console.WriteLine($"PLAYER {currentPlayer + 1}: It's your turn!!!\n\n");
             Console.WriteLine("-------------------------Pick a Category---------------------------");
-            Console.WriteLine("|                                                                 | ");
+            Console.WriteLine("|                                                                 |");
             Console.WriteLine("|                                                                 |");
             Console.WriteLine("|                                                                 |");
             Console.WriteLine("|1.)Computer Science      2.)History         3.)Science           |");
@@ -64,100 +82,147 @@ namespace TriviaGame
             Console.WriteLine("|                                                                 |");
             Console.WriteLine("|                                                                 |");
             Console.WriteLine("|                                                                 |");
-            Console.WriteLine("------------------------------------------------------------------");
+            Console.WriteLine("-------------------------------------------------------------------");
             Console.WriteLine("\n\nUsing the number pad, press the corresponding number for the category you wish to select");
+            
             int keyInput = Console.ReadKey(true).KeyChar - '0';
-
+            Console.Clear();
             if (keyInput < 1 || keyInput > 3)
             {
                 Console.Clear();
                 CategoryPicker();
             }
 
-            QuestionHandler(keyInput);
+            QuestionHandler(keyInput - 1);
         }
 
         
         //Populates questions from the Dictionaries
         public void QuestionHandler(int x)
         {
-            if (player1Turn == true) {
-                if (x == 1)
-                {
-                    for (int i = 0; i < a.map.Count; i++)
-                    {
-                        Console.WriteLine(a.map.Keys.ElementAt(i));  
-                    }
-                }
-                else if (x == 2)
-                {
-                    Console.WriteLine("Chicken");
-                }
-                else if (x == 3)
-                {
-                    Console.WriteLine("Steak");
-                }
-                player1Turn = false;
-                player1Turn = true;
+
+            int currentIterator = iteratorArray[x];
+            string currentKey = a.categories[x].Keys.ElementAt(currentIterator);
+            Console.WriteLine($"{currentKey}\n\n\n\n");
+            int tracker = 1;
+
+            for (int i = 0; i < a.allAnswers[x][currentIterator].Count; i++)
+            {
+                int k = random.Next(0, i);
+                string value = a.allAnswers[x][currentIterator][k];
+                a.allAnswers[x][currentIterator][k] = a.allAnswers[x][currentIterator][i];
+                a.allAnswers[x][currentIterator][i] = value;
             }
 
-            if (player2Turn == true)
+            foreach (string answer in a.allAnswers[x][currentIterator])
             {
-                if (x == 1)
-                {
-                    Console.WriteLine("Turkey");
-                }
-                else if (x == 2)
-                {
-                    Console.WriteLine("Chicken");
-                }
-                else if (x == 3)
-                {
-                    Console.WriteLine("Steak");
-                }
-                player2Turn = false;
-                player3Turn = true;
+                Console.WriteLine($" {tracker}) {answer}\n\n");
+                tracker++;
             }
 
-            if (player3Turn == true)
+            int playerAnswer = Console.ReadKey(true).KeyChar - '0';
+
+            if(playerAnswer == -35)
             {
-                if (x == 1)
-                {
-                    Console.WriteLine("Turkey");
-                }
-                else if (x == 2)
-                {
-                    Console.WriteLine("Chicken");
-                }
-                else if (x == 3)
-                {
-                    Console.WriteLine("Steak");
-                }
-                player3Turn = false;
-                player4Turn = true;
+                Console.WriteLine("You passed your turn");
+                iteratorArray[x]++;
+                Thread.Sleep(2000);
+                Console.Clear();
+                PlayerHandler(false);
+                CategoryPicker();
+            }
+            else if (a.allAnswers[x][currentIterator][playerAnswer - 1] == a.categories[x][currentKey])
+            {
+                Console.WriteLine("Correct!");
+                iteratorArray[x]++;
+                Thread.Sleep(2000);
+                Console.Clear();
+                PlayerHandler(true);
+                CategoryPicker();
+            }
+            else
+            {
+                Console.WriteLine("Incorrect Answer");
+                iteratorArray[x]++;
+                Thread.Sleep(2000);
+                Console.Clear();
+                PlayerHandler(false);
+                CategoryPicker();
             }
 
-            if (player4Turn == true)
-            {
-                if (x == 1)
-                {
-                    Console.WriteLine("Turkey");
-                }
-                else if (x == 2)
-                {
-                    Console.WriteLine("Chicken");
-                }
-                else if (x == 3)
-                {
-                    Console.WriteLine("");
-                }
-                player4Turn = false;
-                player1Turn = true;
-            }
+           
+
+
+
         }
-        public void PlayerHandler()
+        public void PlayerHandler(bool isCorrect)
         {
-            
+            if (isCorrect)
+            {
+                if (currentPlayer < 3)
+                {
+                    playerScores[currentPlayer]++;
+
+                    foreach (int score in playerScores)
+                    {
+                        if (score == maxScore)
+                        {
+                            Console.Clear();
+                            wonGame = true;
+                            Console.WriteLine($"Player {currentPlayer + 1} is the WINNER!!!");
+                            Thread.Sleep(3000);
+                            Console.Clear();
+                            Console.WriteLine("Would you like to play agian?\n\n" +
+                                "type YES of NO");
+                            string playAgain = Console.ReadLine().ToUpper();
+                            if (playAgain == "NO")
+                            {
+                                wonGame = false;
+                                System.Environment.Exit(1);
+                            }
+                            else 
+                                wonGame = false;
+                                Console.Clear();
+                            return;
+                        }
+                    }
+                    currentPlayer++;
+                    
+                }
+                else
+                {
+                    playerScores[currentPlayer]++;
+
+                    foreach (int score in playerScores)
+                    {
+                        if (score == maxScore)
+                        {
+                            Console.Clear();
+                            wonGame = true;
+                            Console.WriteLine($"Player {currentPlayer + 1} is the WINNER!!!");
+                            Thread.Sleep(3000);
+                            Console.Clear();
+                            return;
+                        }
+                    }
+
+                    currentPlayer = 0;
+                    CategoryPicker();
+                }
+            }
+            else
+            {
+                if (currentPlayer < 3)
+                {
+                    currentPlayer++;
+                    
+                }
+                else
+                {
+                    currentPlayer = 0;
+                    CategoryPicker();
+                }
+            }
         }
     }
 }
